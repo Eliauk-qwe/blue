@@ -1,29 +1,45 @@
 #include <iostream>
-#include <cmath>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int main(){
-    int w,m,n;
-    cin >> w >> m >> n;
+    int n;
+    cin >> n;
+    vector<int>  b(n+10);
+    for(int i=1;i<=n;i++) cin >> b[i];
 
-    int h1=m/6,h2=n/6;
-    int w1,w2;
-    int num=0;
-    num=num+abs(h1-h2);
+    
+    int res=0;
+    for(int i=1;i<=n;i++){
+        vector<int> a=b;
+        int pos=i;
+        int sum=0;
+        int cnt=1;
 
-    if(h1%2==1){
-        w1=6-m%6+1;
-    }else{
-        w1=m%6;
+        while(1){
+            if(cnt>a.size()-1) break;
+            if(a[pos]==cnt){
+                sum+=a[pos];
+                a.erase(a.begin() + pos);
+                cnt=1;
+            if(pos>a.size()-1) pos=1;
+                if(a.size()==1) break;
+
+               
+            }else{
+                cnt++;
+                pos++;
+            if(pos>a.size()-1) pos=1;
+
+            }
+        }
+
+        res=max(res,sum);
+        
+
     }
-    if(h2%2==1){
-        w2=6-n%6+1;
-    }else{
-        w2=n%6;
-    }
-
-
-    num=num+abs(w1-w2);
-    cout << num;
+    cout << res << endl;
+    
     return 0;
 }
